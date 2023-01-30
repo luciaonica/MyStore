@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: page_head('Orders - My Store')}" />
+<body>
+<div class="container-fluid">
+	<div th:replace="~{navigation :: menu}" ></div>
+	<div>
+		<h2>Manage Orders</h2>	
+		<a th:href="@{/orders/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>				
+	</div>
+	
+	<div th:if="${message != null}" class="alert-success text-center">
+		[[${message}]]
+	</div>
+	
+	<div>
+		<form th:action="@{/orders/page/1}" class="form-inline m-3">
+			<input type="hidden" name="sortField" th:value="${sortField}" />
+			<input type="hidden" name="sortDir" th:value="${sortDir}" />
+			
+			Filter: &nbsp;
+			<input type="search" name="keyword" th:value="${keyword}" class="form-control" required />
+			&nbsp;&nbsp;
+			<input type="submit" value="Search" class="btn btn-primary" />
+			&nbsp;&nbsp;
+			<input type="button" value="Clear" class="btn btn-secondary" onclick="clearFilter()" />
+		</form>
+	</div>
+	
+	<div>
+		<table class="table table-bordered table-striped table-hover table-responsive-lg"
+			>
+			<thead class="thead-dark">
+				<tr>
+					<th th:replace="~{fragments :: column_link('/orders', 'id', 'ID')}" />
+					<th th:replace="~{fragments :: column_link('/orders', 'customer', 'Customer')}" />
+					<th th:replace="~{fragments :: column_link('/orders', 'total', 'Total')}" />	
+					<th th:replace="~{fragments :: column_link('/orders', 'orderTime', 'Order Time')}" />	
+					<th th:replace="~{fragments :: column_link('/orders', 'productName', 'Product Name')}" />	
+					<th th:replace="~{fragments :: column_link('/orders', 'quantity', 'Quantity')}" />	
+					<th>Image</th>																										
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="order : ${listOrders}">
+					<td>[[${order.id}]]</td>
+					<td>[[${order.customer.name}]]</td>
+					<td>[[${order.total}]]</td>
+					<td>
+						<div th:replace="~{fragments :: format_time(${order.orderTime})}"></div>
+					</td>
+					<td>[[${order.product.name}]]</td>
+					<td>[[${order.quantity}]]</td>
+					<td>
+						<img th:src="@{${order.imagePath}}" style="width: 100px" class="img-fluid" />
+					</td>
+										
+					<td>	
+						<a class="fas fa-file-alt fa-2x icon-green linkOrderDetail"
+							th:href="@{'/orders/detail/' + ${order.id}}"
+							title="View details of this order"
+						></a>
+						&nbsp;
+						<a class="fas fa-edit fa-2x icon-green" th:href="@{'/orders/edit/' + ${order.id}}"
+							title="Edit this order"></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div th:replace="~{fragments :: pagination('/orders', 'orders')}"></div>
+	
+	<div class="modal fade" id="orderDetailModal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			</div>
+		</div>	
+	</div>	
+	
+</div>
+
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+	moduleURL = "[[@{/orders}]]"
+	
+	$(document).ready(function() {
+		$(".linkOrderDetail").on("click", function(e){
+			e.preventDefault();
+			linkDetailURL = $(this).attr("href");
+			$("#orderDetailModal").modal("show").find(".modal-content").load(linkDetailURL);
+		});
+	});		
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: page_head('Categories - My Store')}" />
+<body>
+<div class="container-fluid">
+	<div th:replace="~{navigation :: menu}" ></div>
+	<div>
+		<h2>Manage Categories</h2>	
+		<a th:href="@{/categories/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>				
+	</div>
+	
+	<div th:if="${message != null}" class="alert-success text-center">
+		[[${message}]]
+	</div>
+	
+	<div th:replace="~{fragments :: search_form('/categories/page/1')}"></div>
+	
+	<div>
+		<table class="table table-bordered table-striped table-hover table-lg">
+			<thead class="thead-dark">
+				<tr>
+					<th>ID</th>
+					<th>Category Image</th>
+					<th th:replace="~{fragments :: column_link('/categories', 'name', 'Name')}" />
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="category : ${listCategories}">
+					<td>[[${category.id}]]</td>
+					<td>
+						<img th:src="@{${category.imagePath}}" style="width: 100px" class="img-fluid" />
+					</td>
+					<td>[[${category.name}]]</td>
+										
+					<td>	
+						<a class="fas fa-edit fa-2x icon-green" 
+							th:href="@{'/categories/edit/' + ${category.id}}"
+							title="Edit this category"></a>
+						
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div th:if="${keyword != null}" class="text-center">
+		<span>Search result does not show categories in hierarchical form</span>
+		<div th:replace="~{fragments :: pagination('/categories', 'categories')}"></div>
+	</div>
+	
+	<th:block th:unless="${keyword != null}">
+	<div th:replace="~{fragments :: pagination('/categories', 'top-level categories')}"></div>
+	</th:block>
+	
+</div>
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+	moduleURL = "[[@{/categories}]]";
+	
+</script>
+</body>
+</html>
