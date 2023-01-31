@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.store.FileUploadUtil;
+import com.store.Category.CategoryNotFoundException;
 import com.store.entity.Customer;
 
 @Controller
@@ -86,4 +88,19 @@ public class CustomerController {
 			return defaultRedirectURL;
 		}		
 	}
+	
+	@GetMapping("/customers/delete/{id}")
+	public String deleteCustomer(@PathVariable(name = "id") Integer id, 
+			Model model, RedirectAttributes redirectAttributes) {
+		try {
+			service.delete(id);
+					
+			redirectAttributes.addFlashAttribute("message", 
+					"The customer ID " + id + " has been deleted successfully");
+		} catch (CustomerNotFoundException ex) {
+			redirectAttributes.addFlashAttribute("message", ex.getMessage());
+		}
+		
+		return defaultRedirectURL;
+	}	
 }

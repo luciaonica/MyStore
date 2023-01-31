@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.store.entity.Category;
+import com.store.product.ProductRepository;
 
 @Service
 public class CategoryService {
@@ -18,6 +19,9 @@ public static final int ROOT_CATEGORIES_PER_PAGE = 5;
 	
 	@Autowired
 	private CategoryRepository repo;
+	
+	@Autowired
+	private ProductRepository productRepo;
 	
 	public List<Category> listAll(){
 		return (List<Category>) repo.findAll();
@@ -58,6 +62,11 @@ public static final int ROOT_CATEGORIES_PER_PAGE = 5;
 		Long countById = repo.countById(id);
 		if (countById == null || countById == 0) {
 			throw new CategoryNotFoundException("Could not find any category with ID " + id);
+		}
+		
+		if (productRepo.findByCategory(id).size()>0) {			
+			throw new CategoryNotFoundException("Could not delete category with ID " + id + 
+					". There are some products in this category.");
 		}
 		
 		repo.deleteById(id);

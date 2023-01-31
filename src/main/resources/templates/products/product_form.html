@@ -64,52 +64,101 @@
 			</div>
 		</div>
 		
-		<div class="form-group row d-none" id="quantityDiv">
+		<div th:if="${product.category != null}" class="form-group row" id="quantityDiv" th:classappend="${product.category.id == 1 || product.category.id == 2} ? 'd-none' : ''">
 			<label class="col-sm-4 col-form-label">Quantity:</label>
 			<div class="col-sm-8">
-				<input type="number" class="form-control" th:field="*{quantity}"  step="1">
+				<input type="number" class="form-control" th:field="*{quantity}"  step="1"  >
 			</div>
 		</div>
 		
-		<div class="form-group row d-none" id="volumeDiv">
+		<div th:if="${product.category == null}" class="form-group row" id="quantityDiv">
+			<label class="col-sm-4 col-form-label">Quantity:</label>
+			<div class="col-sm-8">
+				<input type="number" class="form-control" th:field="*{quantity}"  step="1" >
+			</div>
+		</div>
+		
+		<div th:if="${product.category != null}" class="form-group row " id="volumeDiv" th:classappend="${product.category.id == 1 || product.category.id == 3 || product.category.id == 4} ? 'd-none' : ''" >
+			<label class="col-sm-4 col-form-label">Volume:</label>
+			<div class="col-sm-8">
+				<input id="cost" type="number" class="form-control" th:field="*{volume}" step="0.01"  >
+			</div>
+		</div>
+		
+		<div th:if="${product.category == null}" class="form-group row " id="volumeDiv">
 			<label class="col-sm-4 col-form-label">Volume:</label>
 			<div class="col-sm-8">
 				<input id="cost" type="number" class="form-control" th:field="*{volume}" step="0.01">
 			</div>
 		</div>
 				
-		<div class="form-group row d-none" id="heightDiv">
+		<div th:if="${product.category != null}" class="form-group row " id="heightDiv" th:classappend="${product.category.id == 1 || product.category.id == 2} ? 'd-none' : ''" >
 			<label class="col-sm-4 col-form-label">Height In Inch:</label>
 			<div class="col-sm-8">
 				<input type="number" class="form-control" th:field="*{height_inch}"  step="0.1">
 			</div>
+		</div>
+		
+		<div th:if="${product.category == null}" class="form-group row " id="heightDiv">
+			<label class="col-sm-4 col-form-label">Height In Inch:</label>
+			<div class="col-sm-8">
+				<input type="number" class="form-control" th:field="*{height_inch}"  step="0.1" >
+			</div>
 		</div>	
 		
-		<div class="form-group row d-none" id="topWidthDiv">
+		<div th:if="${product.category != null}" class="form-group row " id="topWidthDiv" th:classappend="${product.category.id == 1 || product.category.id == 2} ? 'd-none' : ''">
 			<label class="col-sm-4 col-form-label">Top Width In Inch:</label>
 			<div class="col-sm-8">
-				<input type="number" class="form-control" th:field="*{top_width_inch}"  step="0.1">
+				<input type="number" class="form-control" th:field="*{top_width_inch}"  step="0.1" >
 			</div>
 		</div>
 		
-		<div class="form-group row d-none"  id="topLengthDiv">
+		<div th:if="${product.category == null}" class="form-group row " id="topWidthDiv">
+			<label class="col-sm-4 col-form-label">Top Width In Inch:</label>
+			<div class="col-sm-8">
+				<input type="number" class="form-control" th:field="*{top_width_inch}"  step="0.1" >
+			</div>
+		</div>
+		
+		<div th:if="${product.category != null}"  class="form-group row "  id="topLengthDiv" th:classappend="${product.category.id == 1 || product.category.id == 2 || product.category.id == 3} ? 'd-none' : ''">
 			<label class="col-sm-4 col-form-label">Top Length In Inch:</label>
 			<div class="col-sm-8">
-				<input type="number" class="form-control" th:field="*{top_length_inch}"  step="0.1">
+				<input type="number" class="form-control" th:field="*{top_length_inch}"  step="0.1" >
 			</div>
 		</div>
 		
-		<div class="form-group row d-none"  id="bottomWidthDiv">
+		<div th:if="${product.category == null}"  class="form-group row "  id="topLengthDiv">
+			<label class="col-sm-4 col-form-label">Top Length In Inch:</label>
+			<div class="col-sm-8">
+				<input type="number" class="form-control" th:field="*{top_length_inch}"  step="0.1" >
+			</div>
+		</div>
+		
+		<div th:if="${product.category != null}" class="form-group row "  id="bottomWidthDiv" th:classappend="${product.category.id == 1 || product.category.id == 2} ? 'd-none' : ''">
 			<label class="col-sm-4 col-form-label">Bottom Width In Inch:</label>
 			<div class="col-sm-8">
-				<input type="number" class="form-control" th:field="*{bottom_width_inch}"  step="0.01">
+				<input type="number" class="form-control" th:field="*{bottom_width_inch}"  step="0.01" >
 			</div>
 		</div>	
 		
-		<div class="form-group row d-none" id="bottomLengthDiv">
+		<div th:if="${product.category == null}" class="form-group row "  id="bottomWidthDiv">
+			<label class="col-sm-4 col-form-label">Bottom Width In Inch:</label>
+			<div class="col-sm-8">
+				<input type="number" class="form-control" th:field="*{bottom_width_inch}"  step="0.01" >
+			</div>
+		</div>	
+		
+		<div th:if="${product.category != null}" class="form-group row " id="bottomLengthDiv" th:classappend="${product.category.id == 1 || product.category.id == 2 || product.category.id == 3} ? 'd-none' : ''">
 			<label class="col-sm-4 col-form-label">Bottom Length In Inch:</label>
 			<div class="col-sm-8">
-				<input type="number" class="form-control" th:field="*{bottom_length_inch}"  step="0.01">
+				<input type="number" class="form-control" th:field="*{bottom_length_inch}"  step="0.01" >
+			</div>
+		</div>
+		
+		<div th:if="${product.category == null}" class="form-group row " id="bottomLengthDiv">
+			<label class="col-sm-4 col-form-label">Bottom Length In Inch:</label>
+			<div class="col-sm-8">
+				<input type="number" class="form-control" th:field="*{bottom_length_inch}"  step="0.01" >
 			</div>
 		</div>
 		
@@ -132,13 +181,22 @@
 		dropdownCategories.change(function() {
 			categoryId = dropdownCategories.val();
 			
-			if (categoryId == 1) handlePlantDetails();
-				
-			if (categoryId == 2) handleSoilDetail();
+			switch (categoryId) {
+			case '1':
+				handlePlantDetails();
+				break;
+			case '2':
+				handleSoilDetail();
+				break;
+			case '3':
+				handleRoundPotDetail();
+				break;
+			default:
+				handleRectangularPotDetail();
+				break;
+			}
 			
-			if (categoryId == 3) handleRoundPotDetail();
 			
-			if (categoryId == 4) handleRectangularPotDetail();
 			
 			function handlePlantDetails(){
 				$("#quantityDiv").addClass("d-none");

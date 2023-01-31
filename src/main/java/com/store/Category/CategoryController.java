@@ -124,8 +124,9 @@ public class CategoryController {
 					"The category ID " + id + " has been deleted successfully");
 		} catch (CategoryNotFoundException ex) {
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());
+			System.out.println("category ----------" + ex.getMessage());
 		}
 		
-		return "redirect:/categories";
+		return defaultRedirectURL;
 	}	
 }

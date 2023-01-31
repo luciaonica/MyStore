@@ -10,13 +10,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.store.Category.CategoryNotFoundException;
 import com.store.entity.Product;
+import com.store.order.OrderNotFoundException;
+import com.store.order.OrderRepository;
 
 @Service
 public class ProductService {
 	public static final int PRODUCTS_PER_PAGE = 40;
 	
 	@Autowired private ProductRepository repo;
+	
+	@Autowired private OrderRepository orderRepo;
 	
 	public List<Product> listAll(){
 		return (List<Product>) repo.findAll();
@@ -61,6 +66,22 @@ public class ProductService {
 
 	public List<Product> listAllPlants() {
 		return repo.findByCategory(1);
+	}
+	
+	public void delete(Integer id) throws ProductNotFoundException{
+		Long countById = repo.countById(id);
+		
+		if (countById == null || countById == 0) {
+			throw new ProductNotFoundException("Could not found any product with ID " + id);
+		}
+		
+		if (orderRepo.findByProduct(id).size()>0) {			
+			throw new ProductNotFoundException("Could not delete product with ID " + id + 
+					". There are some orders of this product.");
+		}
+		
+		repo.deleteById(id);
+		
 	}
 
 }

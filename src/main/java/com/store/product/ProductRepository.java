@@ -19,4 +19,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	@Query("select p from Product p where p.category.id = 4 or p.category.id = 3 ")
 	public List<Product> findAllPots();
+
+	Long countById(Integer id);
 }

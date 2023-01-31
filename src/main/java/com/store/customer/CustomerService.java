@@ -10,13 +10,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.store.Category.CategoryNotFoundException;
 import com.store.entity.Customer;
+import com.store.order.OrderRepository;
 
 @Service
 public class CustomerService {
 	public static final int CUSTOMERS_PER_PAGE = 6;
 	
 	@Autowired private CustomerRepository repo;
+	
+	@Autowired private OrderRepository orderRepo;
 	
 	public List<Customer> listAll(){
 		return (List<Customer>) repo.findAll();
@@ -48,4 +52,18 @@ public class CustomerService {
 			throw new CustomerNotFoundException("Could not find any customer with ID " + id);
 		}
 	}
+	
+	public void delete(Integer id) throws CustomerNotFoundException {
+		Long countById = repo.countById(id);
+		if (countById == null || countById == 0) {
+			throw new CustomerNotFoundException("Could not find any customer with ID " + id);
+		}
+		
+		if (orderRepo.findByCustomer(id).size()>0) {			
+			throw new CustomerNotFoundException("Could not delete customer with ID " + id + 
+					". This customer has some orders.");
+		}
+		
+		repo.deleteById(id);
+	}	
 }

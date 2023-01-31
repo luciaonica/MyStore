@@ -20,6 +20,7 @@ import com.store.FileUploadUtil;
 import com.store.Category.CategoryService;
 import com.store.entity.Category;
 import com.store.entity.Product;
+import com.store.order.OrderNotFoundException;
 
 @Controller
 public class ProductController {
@@ -157,4 +158,19 @@ public class ProductController {
 			return defaultRedirectURL;
 		}		
 	}
+	
+	@GetMapping("/products/delete/{id}")
+	public String deleteProduct(@PathVariable("id") Integer id, Model model, 
+			RedirectAttributes ra) {
+		try {
+			productService.delete(id);		
+			
+			ra.addFlashAttribute("message", 
+					"The product with ID " + id + " has been deleted successfully");			
+		}catch (ProductNotFoundException ex) {			
+			ra.addFlashAttribute("message", ex.getMessage());				
+		}
+		
+		return defaultRedirectURL;		
+	}	
 }
