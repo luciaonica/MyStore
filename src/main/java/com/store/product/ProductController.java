@@ -17,10 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.store.FileUploadUtil;
-import com.store.Category.CategoryService;
+import com.store.category.CategoryService;
 import com.store.entity.Category;
 import com.store.entity.Product;
-import com.store.order.OrderNotFoundException;
 
 @Controller
 public class ProductController {

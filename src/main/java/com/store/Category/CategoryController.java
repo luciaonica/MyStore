@@ -1,4 +1,4 @@
-package com.store.Category;
+package com.store.category;
 
 import java.io.IOException;
 import java.util.List;

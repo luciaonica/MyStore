@@ -1,4 +1,4 @@
-package com.store.Category;
+package com.store.category;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

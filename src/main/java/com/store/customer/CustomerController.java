@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.store.FileUploadUtil;
-import com.store.Category.CategoryNotFoundException;
 import com.store.entity.Customer;
 
 @Controller

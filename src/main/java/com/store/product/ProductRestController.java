@@ -1,4 +1,3 @@
-
 package com.store.product;
 
 import java.text.DecimalFormat;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.store.entity.Product;
-
 
 @RestController
 public class ProductRestController {
@@ -28,6 +26,6 @@ public class ProductRestController {
 		
 		DecimalFormat df = new DecimalFormat("#.##");
 		
-		return new Float(df.format(cost));	
+		return Float.valueOf(df.format(cost));
 	}
 }

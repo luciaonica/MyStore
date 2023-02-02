@@ -1,4 +1,4 @@
-package com.store.Category;
+package com.store.category;
 
 import java.util.List;
 import java.util.NoSuchElementException;

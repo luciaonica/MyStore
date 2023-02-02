@@ -45,6 +45,13 @@ public class Product {
 	private float top_length_inch;
 	private float bottom_length_inch;	
 
+	public Product() {
+	}
+	
+	public Product(String name) {
+		this.name = name;
+	}
+
 	public Integer getId() {
 		return id;
 	}

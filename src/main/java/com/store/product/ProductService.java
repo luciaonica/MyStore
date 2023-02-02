@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.store.Category.CategoryNotFoundException;
+import com.store.category.CategoryNotFoundException;
 import com.store.entity.Product;
 import com.store.order.OrderNotFoundException;
 import com.store.order.OrderRepository;

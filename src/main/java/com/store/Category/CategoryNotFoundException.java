@@ -1,4 +1,4 @@
-package com.store.Category;
+package com.store.category;
 
 public class CategoryNotFoundException extends Exception {
 

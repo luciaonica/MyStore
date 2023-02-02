@@ -48,6 +48,25 @@ public class Order {
 	private float price;
 	private float total;	
 
+	public Order() {
+	}
+
+	public Order(Integer id, Date orderTime, float cost, float total) {
+		this.id = id;
+		this.orderTime = orderTime;
+		this.cost = cost;
+		this.total = total;
+	}
+	
+	public Order(String productName, int quantity, Date orderTime, float cost, float total) {
+		this.product = new Product(productName);
+		this.quantity = quantity;
+		this.orderTime = orderTime;
+		this.cost = cost;
+		this.total = total;
+	}
+
+
 	public Integer getId() {
 		return id;
 	}
