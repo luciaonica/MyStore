@@ -21,7 +21,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 	public List<Order> findByCustomer(Integer customerId);
 	
 	@Query("SELECT o FROM Order o WHERE o.product.id = ?1 OR o.potType.id = ?1 OR o.soilType.id = ?1")
-	public List<Order> findByProduct(Integer customerId);
+	public List<Order> findByProduct(Integer productId);
 	
 	@Query("SELECT NEW com.store.entity.Order(o.product.name, o.quantity, o.orderTime, o.cost, o.total) FROM Order o "
 			+ "WHERE o.orderTime between ?1 AND ?2 ORDER BY o.orderTime ASC")
@@ -31,6 +31,4 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 			+ "WHERE o.orderTime between ?1 AND ?2 ORDER BY o.orderTime ASC")
 	public List<Order> findByOrderTimeBetween(Date startTime, Date endTime);
 	
-
-
 }

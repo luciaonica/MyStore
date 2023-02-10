@@ -13,14 +13,18 @@
 		  <li class="nav-item">
 		    <a class="nav-link active" data-toggle="tab" href="#date" role="tab">Sales by Date</a>
 		  </li>
-		 
+		  <li class="nav-item">
+		    <a class="nav-link" data-toggle="tab" href="#product" role="tab">Sales by Product</a>
+		  </li>
 		</ul>			
 			
 		<div class="tab-content">
 		  <div class="tab-pane active p-3" id="date" role="tabpanel">
-		  	<div th:replace="~{reports/sales_report_fragment :: content}"></div>
+		  	<div th:replace="~{reports/sales_report_fragment :: content_date}"></div>
 		  </div>
-		  
+		  <div class="tab-pane p-3" id="product" role="tabpanel">
+		  	<div th:replace="~{reports/sales_report_fragment :: content_product}"></div>
+		  </div>		  
 		</div>			
 	</div>			
 	
@@ -29,12 +33,10 @@
 <script type="text/javascript">	
 	contextPath = "[[@{/}]]";		
 	
-	$(document).ready(function() {
-		google.charts.load('current', {'packages': ['corechart', 'table']});
-		google.charts.setOnLoadCallback(loadSalesReportByDate);
-	});
+	
 </script>
 <script type="text/javascript" th:src="@{/js/jquery.number.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/sales_report_by_date.js}"></script>
+<script type="text/javascript" th:src="@{/js/sales_report_by_product.js}"></script>
 </body>
 </html>
