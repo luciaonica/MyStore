@@ -32,4 +32,11 @@ public class ReportRestControllerTests {
 		mockMvc.perform(get(requestURL)).andExpect(status().isOk()).andDo(print());		
 	}
 	
+	@Test
+	public void testGetReportDataLast7DaysByProduct() throws Exception {
+		
+		String requestURL = "/reports/sales_by_product/last_7_days";
+		
+		mockMvc.perform(get(requestURL)).andExpect(status().isOk()).andDo(print());		
+	}	
 }

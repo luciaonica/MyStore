@@ -66,7 +66,6 @@ public class Order {
 		this.total = total;
 	}
 
-
 	public Integer getId() {
 		return id;
 	}

@@ -7,6 +7,8 @@ public class ReportItem {
 	private float grossSales;
 	private float netSales;
 	private int ordersCount;
+	private int productsCount;
+	private float productPrice;
 
 	public ReportItem() {
 	}
@@ -20,7 +22,15 @@ public class ReportItem {
 		this.grossSales = grossSales;
 		this.netSales = netSales;
 	}
-
+	
+	public ReportItem(String identifier, float grossSales, float netSales, int productsCount, float productPrice) {
+		this.identifier = identifier;
+		this.grossSales = grossSales;
+		this.netSales = netSales;
+		this.productsCount = productsCount;
+		this.productPrice = productPrice;
+	}
+		
 	public String getIdentifier() {
 		return identifier;
 	}
@@ -81,5 +91,24 @@ public class ReportItem {
 	public void increaseOrdersCount() {
 		this.ordersCount++;
 	}
+	
+	public int getProductsCount() {
+		return productsCount;
+	}
 
+	public void setProductsCount(int productsCount) {
+		this.productsCount = productsCount;
+	}
+	
+	public void increaseProductsCount(int count) {
+		this.productsCount += count;			
+	}		
+
+	public float getProductPrice() {
+		return productPrice;
+	}
+
+	public void setProductPrice(float productPrice) {
+		this.productPrice = productPrice;
+	}	
 }

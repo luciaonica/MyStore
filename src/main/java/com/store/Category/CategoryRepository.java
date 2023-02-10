@@ -15,5 +15,5 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 	public Long countById(Integer id);
 	
 	public Category findByName(String name);
-
+	
 }

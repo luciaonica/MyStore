@@ -5,6 +5,10 @@ var totalNetSales;
 var totalItems;
 
 $(document).ready(function() {
+	
+	google.charts.load('current', {'packages': ['corechart', 'table']});
+	google.charts.setOnLoadCallback(loadSalesReportByDate);
+	
 	$(".button-sales-by-date").on("click", function(){	
 		
 		$(".button-sales-by-date").each(function(e){
@@ -93,7 +97,7 @@ function getChartTitle(period) {
 	if (period == "last_6_months") return "Sales in Last 6 Months";
 	if (period == "last_year") return "Sales in Last Year";
 	
-	return "";
+	return "Sales in Last 7 Days";
 }
 
 function getDenominator(period) {

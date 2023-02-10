@@ -32,4 +32,27 @@ public class ReportRestController {
 		}	
 		
 	}
+	
+	@GetMapping("/reports/sales_by_product/{period}")
+	public List<ReportItem> getReportDataByProductPeriod(@PathVariable("period") String period) {
+		
+		switch (period) {
+			case "last_7_days":
+				return masterOrderReportService.getReportDataLast7DaysByProduct();
+				
+			case "last_28_days":
+				return masterOrderReportService.getReportDataLast28DaysByProduct();
+				
+			case "last_6_months":
+				return masterOrderReportService.getReportDataLast6MonthsByProduct();
+					
+			case "last_year":
+				return masterOrderReportService.getReportDataLastYearByProduct();
+				
+			default:
+				return masterOrderReportService.getReportDataLast7DaysByProduct();
+		}	
+		
+	}
+	
 }

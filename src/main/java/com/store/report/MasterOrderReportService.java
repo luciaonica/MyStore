@@ -16,6 +16,7 @@ import com.store.order.OrderRepository;
 @Service
 public class MasterOrderReportService {
 	@Autowired private OrderRepository repo;
+	
 	private DateFormat dateFormatter;
 	
 	public List<ReportItem> getReportDataLast7Days() {
@@ -113,4 +114,93 @@ public class MasterOrderReportService {
 		
 		return getReportDataByDateRange(startTime, endTime, "months");		
 	}
+
+	// ----By Product-------
+	
+	public List<ReportItem> getReportDataLast7DaysByProduct() {
+		return getReportDataLastXDaysByProduct(7);
+	}
+
+	private List<ReportItem> getReportDataLastXDaysByProduct(int days) {
+		Date endTime = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_MONTH, -(days - 1));
+		Date startTime = cal.getTime();
+		
+		return getReportDataByDateRangeByProduct(startTime, endTime);		
+	}
+	
+	private List<ReportItem> getReportDataByDateRangeByProduct(Date startTime, Date endTime) {
+		 List<Order> listOrders = repo.findByProductAndTimeBetween(startTime, endTime);
+		 
+		// printRawData(listOrders);
+		 
+		 List<ReportItem> listReportItems = new ArrayList<>();
+		 
+		 for (Order order : listOrders) {
+			String identifier = "";
+			identifier = order.getProduct().getName();	
+			ReportItem reportItem = new ReportItem(identifier);
+			
+			float grossSales = order.getTotal();
+			float netSales = order.getTotal() - order.getCost();
+						
+			int itemIndex = listReportItems.indexOf(reportItem);
+			
+			if (itemIndex >= 0) {
+				reportItem = listReportItems.get(itemIndex);
+				
+				reportItem.addGrossSales(grossSales);
+				reportItem.addNetSales(netSales);
+				
+				reportItem.increaseProductsCount(order.getQuantity());				
+			} else {
+				listReportItems.add(new ReportItem(identifier, grossSales, netSales, order.getQuantity(), order.getProduct().getPrice()));
+			}
+		 }
+		 
+		 //printReportData(listReportItems);
+		 
+		 return listReportItems;
+	}	
+	
+	private void printReportData(List<ReportItem> listReportItems) {
+		for (ReportItem item : listReportItems) {
+			System.out.printf("%-20s, %10.2f, %10.2f, %d \n",
+					item.getIdentifier(), item.getGrossSales(), item.getNetSales(), item.getProductsCount());
+		}
+		
+	}
+	
+	private void printRawData(List<Order> listOrders) {
+		for (Order order : listOrders) {
+			System.out.printf("%d, %-20s, %10.2f, %10.2f \n",
+					order.getQuantity(), order.getProduct().getName(), 
+					order.getTotal(), order.getCost());
+		}
+		
+	}
+
+	public List<ReportItem> getReportDataLast28DaysByProduct() {
+		return getReportDataLastXDaysByProduct(28);
+	}
+
+	public List<ReportItem> getReportDataLast6MonthsByProduct() {
+		return getReportDataLastXMonthsByProduct(6);
+	}
+
+	private List<ReportItem> getReportDataLastXMonthsByProduct(int months) {
+		Date endTime = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, -(months - 1));
+		Date startTime = cal.getTime();
+		
+		dateFormatter = new SimpleDateFormat("yyyy-MM");
+		
+		return getReportDataByDateRangeByProduct(startTime, endTime);	
+	}
+
+	public List<ReportItem> getReportDataLastYearByProduct() {
+		return getReportDataLastXMonthsByProduct(12);
+	}	
 }
